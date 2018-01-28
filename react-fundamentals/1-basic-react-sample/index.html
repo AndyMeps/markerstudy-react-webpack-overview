@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <!-- Import React, adds global `React` -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <!-- Import ReactDOM, adds global `ReactDOM` -->
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  </head>
+  <body>
+    <!-- This is our container for the app, identified by the id attribute. -->
+    <div id="root"></div>
+
+    <!-- Our JavaScript code -->
+    <script type="text/javascript">
+
+      // Create an element using React.
+      var element = React.createElement('h1', null, 'Hello world!');
+      // Will output: <h1>Hello world!</h1>
+
+      // Attach our element to the DOM using ReactDOM
+      ReactDOM.render(
+        element, // The element we want to render
+        document.getElementById('root') // The node we want to attach the element to.
+      );
+    </script>
+  </body>
+</html>

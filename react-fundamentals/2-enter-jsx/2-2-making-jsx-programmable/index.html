@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+      body { background-color: black; }
+      .example-class {
+        font-family: sans-serif;
+        color: mediumaquamarine; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // Define a new component as a function
+      var App = function() {
+        var date = new Date();
+        // Javascript in JSX in Javascript!
+        return (
+          <h1 className="example-class">
+            The date is: {date.toLocaleDateString()}
+          </h1>
+        );
+      }
+      
+      // Attach the component to the DOM by using it as an XML element!
+      ReactDOM.render(
+        <App />,
+        document.getElementById('root')
+      );      
+    </script>
+  </body>
+</html>
