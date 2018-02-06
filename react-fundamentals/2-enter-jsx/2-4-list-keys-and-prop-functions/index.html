@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>List-Keys and Function Props</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+      body { background-color: black; }
+      .user-list {
+        font-family: sans-serif;
+        color: lightgray; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      var User = function(props) {
+        return (
+          <div>
+            <span>The user is: </span>
+            <b>{props.username}</b>
+          </div>
+        )
+      };
+
+      class App extends React.Component {
+
+        constructor(props) {
+          super(props);
+
+          // Add identifiers to users.
+          this.users = [
+            { id: 1, name: 'Joey' },
+            { id: 2, name: 'Ross' },
+            { id: 3, name: 'Chandler' },
+            { id: 4, name: 'Monica' },
+            { id: 5, name: 'Phoebe' },
+            { id: 6, name: 'Rachel' },
+          ];
+        }
+
+        render() {
+          return (
+            <div className="user-list">
+              {
+                this.users.map(function(user) {
+                  // Add the key to each User component, this fixes the
+                  // warning from the previous tutorial.
+                  return <User key={user.id} username={user.name} />
+                })
+              }
+              { /* New controls here to have a go at updating the user list */ }
+              <input type="text" value={this.input} onChange={this.handleInputChange.bind(this)} />
+              <button onClick={this.handleButtonClick.bind(this)}>Add User</button>
+            </div>
+          );
+        }
+
+        /* Called when the button is clicked,
+           attempts to update the user array */
+        handleButtonClick() {
+          var nextId = this.users.length + 1;
+
+          if (this.input == null || this.input === '') {
+            console.log('Input Empty!');
+            return;
+          }
+
+          this.users.push({
+            id: nextId,
+            name: this.input
+          });
+
+          console.log('User List: ', this.users);
+        }
+
+        /* Called when the input changes,
+           updates the input property. */
+        handleInputChange(evt) {
+          console.log('Input Changed: ', evt.target.value);
+          this.input = evt.target.value;
+        }
+      }
+      
+      ReactDOM.render(
+        <App />,
+        document.getElementById('root')
+      );      
+    </script>
+  </body>
+</html>

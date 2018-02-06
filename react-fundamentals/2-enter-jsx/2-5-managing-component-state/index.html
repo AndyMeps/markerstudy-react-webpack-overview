@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Managing Component State</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+      body { background-color: black; }
+      .user-list {
+        font-family: sans-serif;
+        color: lightgray; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      var User = function(props) {
+        return (
+          <div>
+            <span>The user is: </span>
+            <b>{props.username}</b>
+          </div>
+        )
+      };
+
+      class App extends React.Component {
+
+        constructor(props) {
+          super(props);
+
+          // Create a state property with the input and users.
+          this.state = {
+            input: '',
+            users: [
+              { id: 1, name: 'Joey' },
+              { id: 2, name: 'Ross' },
+              { id: 3, name: 'Chandler' },
+              { id: 4, name: 'Monica' },
+              { id: 5, name: 'Phoebe' },
+              { id: 6, name: 'Rachel' },
+            ]
+          };
+        }
+
+        render() {
+          return (
+            <div className="user-list">
+              {
+                // Loop through the users in state.
+                this.state.users.map(function(user) {
+                  return <User key={user.id} username={user.name} />
+                })
+              }
+              <input type="text" value={this.state.input} onChange={this.handleInputChange.bind(this)} />
+              <button onClick={this.handleButtonClick.bind(this)}>Add User</button>
+            </div>
+          );
+        }
+
+        handleInputChange(evt) {
+          console.log('Input Changed: ', evt.target.value);
+
+          // We update the state of input using a react built-in function.
+          // This will update the keys provided and leave the rest unaffected.
+          this.setState({
+            input: evt.target.value
+          });
+        }
+
+        handleButtonClick() {
+          var nextId = this.state.users.length + 1;
+
+          if (this.state.input == null || this.state.input === '') {
+            console.log('Input Empty!');
+            return;
+          }
+
+          // ES6 Spread - This creates a new array based on the old state
+          // and adds the new user to the end.
+          var newUsers = [
+            ...this.state.users,
+            {
+              id: nextId,
+              name: this.state.input
+            }
+          ];
+
+          // We then apply this new array to state with setState.
+          this.setState({
+            users: newUsers
+          });
+
+          console.log('User List: ', this.state.users);
+        }
+      }
+      
+      ReactDOM.render(
+        <App />,
+        document.getElementById('root')
+      );      
+    </script>
+  </body>
+</html>

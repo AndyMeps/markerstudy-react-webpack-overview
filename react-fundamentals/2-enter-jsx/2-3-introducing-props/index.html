@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Introducing Props</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+      body { background-color: black; }
+      .user-list {
+        font-family: sans-serif;
+        color: lightgray; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // Props are provided as the first parameter
+      // of the component function.
+      var User = function(props) {
+        return (
+          <div>
+            <span>The user is: </span>
+            <b>{props.username}</b>
+          </div>
+        )
+      };
+
+      var App = function(props) {
+
+        var users = [
+          'Joey',
+          'Ross',
+          'Chandler',
+          'Monica',
+          'Phoebe',
+          'Rachel'
+        ];
+
+        return (
+          <div className="user-list">
+            {
+              users.map(function(user) {
+                return <User username={user} />
+              })
+            }
+          </div>
+        );
+        
+      }
+      
+      ReactDOM.render(
+        <App />,
+        document.getElementById('root')
+      );      
+    </script>
+  </body>
+</html>
